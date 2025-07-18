@@ -10,7 +10,7 @@ namespace TVBroadcastScheduler.Models
         [Required]
         public string Title { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         public DateTime StartTime { get; set; }
@@ -18,13 +18,15 @@ namespace TVBroadcastScheduler.Models
         [Required]
         public DateTime EndTime { get; set; }
 
-        // Status: Pending, Approved, Rejected
         public string Status { get; set; } = "Pending";
 
-        // Who created it
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
-        // Comments from approver (if any)
-        public string ApprovalComment { get; set; }
+        public string? ApprovalComment { get; set; }  // Nullable
+
+
+        public string? Category { get; set; }
+
+        public string? Channel { get; set; }
     }
 }

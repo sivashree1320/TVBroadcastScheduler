@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using TVBroadcastScheduler.Models;
-using System.Collections.Generic;
 using System.Linq;
+using TVBroadcastScheduler.Data;
+using TVBroadcastScheduler.Models;
 using TVBroadcastScheduler.Models.ViewModel;
 
 namespace TVBroadcastScheduler.Controllers
 {
     public class AccountController : Controller
     {
-        //  Hardcoded mock users (temporary)
-        private static List<User> users = new List<User>
+        private readonly ApplicationDbContext _context;
+
+        public AccountController(ApplicationDbContext context)
         {
-            new User { Id = 1, Username = "admin", Password = "admin123", Role = "Admin" },
-            new User { Id = 2, Username = "scheduler", Password = "sched123", Role = "Scheduler" },
-            new User { Id = 3, Username = "approver", Password = "approve123", Role = "Approver" }
-        };
+            _context = context;
+        }
 
         // GET: /Account/Login
         public IActionResult Login()
@@ -29,24 +28,28 @@ namespace TVBroadcastScheduler.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = users.FirstOrDefault(u =>
+                var user = _context.Users.FirstOrDefault(u =>
                     u.Username == model.Username &&
                     u.Password == model.Password);
 
                 if (user != null)
                 {
-                    // Save user info in session
+                    // Save session
                     HttpContext.Session.SetString("Username", user.Username);
                     HttpContext.Session.SetString("Role", user.Role);
 
-                    // Redirect based on role
-                    return user.Role switch
-                    {
-                        "Admin" => RedirectToAction("Users", "Admin"),
-                        "Scheduler" => RedirectToAction("Index", "Broadcast"),
-                        "Approver" => RedirectToAction("Approvals", "Broadcast"),
-                        _ => RedirectToAction("Login")
-                    };
+                    // Role-based redirect
+                    if (user.Role == "Admin")
+                        return RedirectToAction("Users", "Admin");
+
+                    if (user.Role == "Scheduler")
+                        return RedirectToAction("Create", "Broadcast");
+
+                    if (user.Role == "Approver")
+                        return RedirectToAction("Approvals", "Broadcast");
+
+                    // If role is invalid/fallback
+                    return RedirectToAction("Login");
                 }
 
                 ViewBag.Error = "Invalid username or password.";
@@ -54,8 +57,6 @@ namespace TVBroadcastScheduler.Controllers
 
             return View(model);
         }
-        
-
 
         // GET: /Account/Logout
         public IActionResult Logout()

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TVBroadcastScheduler.Data;
 
@@ -11,9 +12,11 @@ using TVBroadcastScheduler.Data;
 namespace TVBroadcastScheduler.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250718114237_AddBroadcastTable")]
+    partial class AddBroadcastTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,18 +34,23 @@ namespace TVBroadcastScheduler.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApprovalComment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Channel")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")
@@ -62,44 +70,6 @@ namespace TVBroadcastScheduler.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Broadcasts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Daily",
-                            Channel = "BBC News",
-                            CreatedBy = "scheduler",
-                            Description = "Start your day with fresh updates and music.",
-                            EndTime = new DateTime(2025, 7, 20, 8, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2025, 7, 20, 7, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = "Pending",
-                            Title = "English Morning Show"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Category = "Daily",
-                            Channel = "CNN",
-                            CreatedBy = "scheduler",
-                            Description = "World economy & stock news.",
-                            EndTime = new DateTime(2025, 7, 20, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2025, 7, 20, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = "Pending",
-                            Title = "Business Buzz"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Category = "Daily",
-                            Channel = "Discovery",
-                            CreatedBy = "scheduler",
-                            Description = "Latest in gadgets and innovation.",
-                            EndTime = new DateTime(2025, 7, 20, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2025, 7, 20, 17, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = "Pending",
-                            Title = "Tech Talk Live"
-                        });
                 });
 
             modelBuilder.Entity("TVBroadcastScheduler.Models.User", b =>

@@ -1,0 +1,108 @@
+﻿@* @model List<TVBroadcastScheduler.Models.Broadcast>
+
+@{
+    ViewBag.Title = "Scheduler Dashboard - English Daily Broadcasts";
+    var englishChannels = new List<string> { "BBC News", "CNN", "Discovery", "Star World", "HBO", "Sony Pix", "AXN", "Zee Café", "Colors Infinity" };
+}
+
+<link rel="stylesheet" href="~/css/SchedulerDashboard.css" />
+
+<div class="dashboard-container">
+    <h2 class="dashboard-title">Scheduler Broadcast Overview – English Channels</h2>
+
+    <div class="text-right mb-3">
+        <a asp-controller="Broadcast" asp-action="Create" class="btn btn-success">Add New Broadcast</a>
+    </div>
+
+    @if (Model != null && Model.Any(b => b.Category == "Daily" && englishChannels.Contains(b.Channel)))
+    {
+        <div class="table-wrapper">
+            <table class="broadcast-table">
+                <thead>
+                    <tr>
+                        <th>Channel</th>
+                        <th>TV Show</th>
+                        <th>Created By</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th>Approval Comment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(b => b.Category == "Daily" && englishChannels.Contains(b.Channel)))
+                    {
+                        <tr>
+                            <td>@item.Channel</td>
+                            <td>@item.Title</td>
+                            <td>@item.CreatedBy</td>
+                            <td>@item.StartTime.ToString("hh:mm tt")</td>
+                            <td>@item.EndTime.ToString("hh:mm tt")</td>
+                            <td>@item.Status</td>
+                            <td>@item.ApprovalComment</td>
+                            <td>
+                                <form asp-controller="Broadcast" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure you want to delete this broadcast?');">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="no-data-message">No daily broadcasts found for English channels.</p>
+    }
+</div> *@
+
+@model List<TVBroadcastScheduler.Models.Broadcast>
+@{
+    ViewBag.Title = "Scheduler Broadcast Overview";
+}
+
+<link rel="stylesheet" href="~/css/SchedulerDashboard.css" />
+
+<div class="dashboard-container">
+    <h2>Scheduler Broadcast Overview</h2>
+
+    <div class="text-right">
+        <a asp-controller="Broadcast" asp-action="Add" class="btn btn-add">+ Add Broadcast</a>
+    </div>
+
+    <table class="broadcast-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created By</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Approval Comment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.CreatedBy</td>
+                    <td>@item.StartTime.ToString("g")</td>
+                    <td>@item.EndTime.ToString("g")</td>
+                    <td>@item.Status</td>
+                    <td>@item.ApprovalComment</td>
+                    <td>
+                        <a asp-controller="Broadcast" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-edit">Edit</a>
+                        <form asp-controller="Broadcast" asp-action="Delete" asp-route-id="@item.Id" method="post" class="inline-form" onsubmit="return confirm('Are you sure?');">
+                            <button type="submit" class="btn btn-delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

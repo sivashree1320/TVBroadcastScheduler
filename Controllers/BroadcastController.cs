@@ -17,24 +17,22 @@ namespace TVBroadcastScheduler.Controllers
             _context = context;
         }
 
-        // GET: /Broadcast/Index
-        public async Task<IActionResult> Index()
+        // GET: /Broadcast
+        public IActionResult Index()
         {
-            var broadcasts = await _context.Broadcasts
-                .Where(b => b.Status == "Approved")
-                .ToListAsync();
-            return View(broadcasts);
+            return RedirectToAction("SchedulerDashboard", "Admin");
         }
 
-        // GET: /Broadcast/Add
-        public IActionResult Add()
+        // GET: /Broadcast/Create
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: /Broadcast/Add
+        // POST: /Broadcast/Create
         [HttpPost]
-        public async Task<IActionResult> Add(Broadcast model)
+        public async Task<IActionResult> Create(Broadcast model)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +81,7 @@ namespace TVBroadcastScheduler.Controllers
                 item.Description = updated.Description;
                 item.StartTime = updated.StartTime;
                 item.EndTime = updated.EndTime;
-                item.Status = "Pending"; // Re-approval needed
+                item.Status = "Pending";
 
                 await _context.SaveChangesAsync();
             }

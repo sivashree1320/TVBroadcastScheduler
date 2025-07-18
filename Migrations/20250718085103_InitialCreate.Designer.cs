@@ -12,7 +12,7 @@ using TVBroadcastScheduler.Data;
 namespace TVBroadcastScheduler.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250718024052_InitialCreate")]
+    [Migration("20250718085103_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

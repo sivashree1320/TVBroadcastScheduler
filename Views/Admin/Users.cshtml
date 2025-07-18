@@ -19,6 +19,11 @@
             </tr>
         </thead>
         <tbody>
+            <div class="text-right mt-4">
+                <a asp-controller="Admin" asp-action="SchedulerDashboard" class="btn btn-primary">
+                    View Scheduler Dashboard
+                </a>
+            </div>
             @foreach (var user in Model)
             {
                 <tr>
@@ -46,4 +51,4 @@
             }
         </tbody>
     </table>
-</div>
+</div> 
