@@ -1,0 +1,23 @@
+﻿@model TVBroadcastScheduler.Models.Broadcast
+
+<div class="edit-form-container">
+    <h2>Edit Broadcast</h2>
+
+    <form asp-action="Edit" asp-controller="Broadcast" method="post">
+        <input asp-for="Id" type="hidden" />
+
+        <label>Title</label>
+        <input asp-for="Title" class="form-control" required />
+
+        <label>Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+
+        <label>Start Time</label>
+        <input asp-for="StartTime" type="datetime-local" class="form-control" required />
+
+        <label>End Time</label>
+        <input asp-for="EndTime" type="datetime-local" class="form-control" required />
+
+        <button type="submit">Update</button>
+    </form>
+</div>

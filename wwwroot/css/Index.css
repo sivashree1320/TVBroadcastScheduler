@@ -1,0 +1,67 @@
+﻿/* --- Index.cshtml Table Styling --- */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+#schedule-table-container {
+    overflow-x: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 14px;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-width: 100px;
+    white-space: nowrap;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+td {
+    background-color: #fdfdfd;
+}
+
+    td.active-slot {
+        background-color: #cde4ff;
+        font-weight: bold;
+    }
+
+    td.now {
+        background-color: #ffe0cc;
+        font-weight: bold;
+        color: #222;
+    }
+
+@media (max-width: 768px) {
+    table, th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}

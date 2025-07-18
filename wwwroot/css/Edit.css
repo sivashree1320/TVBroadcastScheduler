@@ -1,0 +1,58 @@
+﻿/* --- Edit Broadcast Form Styling --- */
+
+.edit-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+    .edit-form-container h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+    }
+
+    .edit-form-container label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .edit-form-container input[type="text"],
+    .edit-form-container input[type="datetime-local"],
+    .edit-form-container textarea {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .edit-form-container textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    .edit-form-container button {
+        width: 100%;
+        padding: 12px;
+        background-color: #ffc107;
+        color: #000;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .edit-form-container button:hover {
+            background-color: #e0a800;
+        }
